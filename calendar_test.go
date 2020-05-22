@@ -1,6 +1,9 @@
-package model
+package calendar
 
-import "testing"
+import (
+	"testing"
+	"time"
+)
 
 func TestGetMonthOfWeek(t *testing.T) {
 	w := "202014"
@@ -24,4 +27,16 @@ func TestGetWeekNumBetweenMonth(t *testing.T) {
 	b = "202005"
 	w = GetWeekNumBetweenMonth(a, b)
 	t.Logf("month %s to %s is %d weeks", a, b, w)
+}
+
+func TestDate(t *testing.T) {
+	dd := Date("Y-m-d H:i:s", time.Now())
+	t.Log(" Y-m-d H:i:s format:", dd)
+}
+
+func TestNowDate(t *testing.T) {
+	dd := NowDate("Y-m-d H:M:S")
+	t.Log("Y-m-d H:M:S format:", dd)
+	dd = NowDate("F T")
+	t.Log("F T format:", dd)
 }
