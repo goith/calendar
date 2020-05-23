@@ -2,7 +2,6 @@ package calendar
 
 import (
 	"fmt"
-	"log"
 	"strconv"
 	"strings"
 	"time"
@@ -32,7 +31,6 @@ func init() {
 	for o, n := range formapMapper {
 		pairs = append(pairs, o, n)
 	}
-	log.Println("replacer:", pairs)
 
 	replacer = strings.NewReplacer(pairs...)
 
