@@ -32,6 +32,14 @@ func TestGetWeekNumBetweenMonth(t *testing.T) {
 func TestDate(t *testing.T) {
 	dd := Date("Y-m-d H:i:s", time.Now())
 	t.Log(" Y-m-d H:i:s format:", dd)
+
+	tt1 := Time{t: time.Now()}
+	dd = tt1.Date("Y-m-d H:i:s")
+	t.Log(" Y-m-d H:i:s format:", dd)
+
+	tt2 := Time{t: time.Now().AddDate(0, 0, -2)}
+	dd = tt2.Date("Y-m-d H:i:s")
+	t.Log(" Y-m-d H:i:s format:", dd)
 }
 
 func TestNowDate(t *testing.T) {

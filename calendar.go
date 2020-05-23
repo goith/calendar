@@ -10,15 +10,15 @@ import (
 
 //2006-01-02 15:04:05
 var formapMapper = map[string]string{
-	"m": "01",
 	"d": "02",
 	"F": "2006-01-02",
 	"H": "15",
 	"i": "04",
+	"m": "01",
 	"M": "04",
+	"R": "15:04",
 	"s": "05",
 	"S": "05",
-	"R": "15:04",
 	"T": "15:04:05",
 	"x": "01/02/2006",
 	"y": "06",
@@ -37,6 +37,20 @@ func init() {
 	replacer = strings.NewReplacer(pairs...)
 
 }
+
+type Time struct {
+	t time.Time
+}
+
+func Now() Time {
+	return Time{t: time.Now()}
+}
+
+func (t *Time) Date(format string) string {
+	goDateFmt := replacer.Replace(format)
+	return t.t.Format(goDateFmt)
+}
+
 func NowDate(format string) string {
 	goDateFmt := replacer.Replace(format)
 	return time.Now().Format(goDateFmt)
