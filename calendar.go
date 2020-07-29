@@ -36,8 +36,16 @@ func init() {
 
 }
 
+type Format int8
+
+const (
+	PHP Format = iota
+	Linux
+)
+
 type Time struct {
 	t time.Time
+	f Format
 }
 
 func Now() Time {
@@ -56,7 +64,7 @@ func NowDate(format string) string {
 
 func Date(format string, t time.Time) string {
 	goDateFmt := replacer.Replace(format)
-	return t.Format(goDateFmt)
+	return time.Unix(t.Unix(), 0).Format(goDateFmt)
 }
 
 func GetDay() string {

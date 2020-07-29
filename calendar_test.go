@@ -33,6 +33,12 @@ func TestDate(t *testing.T) {
 	dd := Date("Y-m-d H:i:s", time.Now())
 	t.Log(" Y-m-d H:i:s format:", dd)
 
+	//别的时区转成本地时区
+	//func Date(year int, month Month, day, hour, min, sec, nsec int, loc *Location) Time
+	//time.Local, time.UTC
+	dd = Date("Y-m-d H:i:s", time.Date(2019, time.November, 10, 10, 0, 0, 0, time.UTC))
+	t.Log("utc convert location, Y-m-d H:i:s format:", dd)
+
 	tt1 := Time{t: time.Now()}
 	dd = tt1.Date("Y-m-d H:i:s")
 	t.Log(" Y-m-d H:i:s format:", dd)
