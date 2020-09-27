@@ -1,4 +1,4 @@
-package calendar
+package linux
 
 import (
 	"fmt"
@@ -8,7 +8,7 @@ import (
 )
 
 //2006-01-02 15:04:05
-var formapMapper = map[string]string{
+var mapper = map[string]string{
 	"d": "02",
 	"F": "2006-01-02",
 	"H": "15",
@@ -21,14 +21,13 @@ var formapMapper = map[string]string{
 	"T": "15:04:05",
 	"x": "01/02/2006",
 	"y": "06",
-	"Y": "2006",
 }
 
 var replacer *strings.Replacer
 
 func init() {
 	var pairs []string
-	for o, n := range formapMapper {
+	for o, n := range mapper {
 		pairs = append(pairs, o, n)
 	}
 
@@ -36,19 +35,10 @@ func init() {
 
 }
 
-type Format int8
-
-const (
-	PHP Format = iota
-	Linux
-)
-
 type Time struct {
 	t time.Time
-	f Format
 }
 
-//
 func Now() Time {
 	return Time{t: time.Now()}
 }
@@ -58,21 +48,18 @@ func (t *Time) Date(format string) string {
 	return t.t.Format(goDateFmt)
 }
 
-// 返回当前时间的指定格式
 func NowDate(format string) string {
 	goDateFmt := replacer.Replace(format)
 	return time.Now().Format(goDateFmt)
 }
 
-// 返回给定时间的指定格式
 func Date(format string, t time.Time) string {
 	goDateFmt := replacer.Replace(format)
 	return time.Unix(t.Unix(), 0).Format(goDateFmt)
 }
 
-//
-//return: 20060102
 func GetDay() string {
+	//2006-01-02
 	return time.Now().Format("20060102")
 }
 func GetWeek() string {
@@ -97,7 +84,6 @@ func GetMonthOfWeek(in string) string {
 	return s
 }
 
-//计算周一所在周
 func GetMondayINWeek(in string) string {
 
 	y, wTmp := in[:4], in[4:]
@@ -126,12 +112,11 @@ func GetWeekDay(wd time.Weekday) time.Time {
 	return weekStart
 }
 
-//return: 200601
 func GetMonth() string {
+	//2006-01-02
 	return time.Now().Format("200601")
 }
 
-//计算俩月之间有几周
 func GetWeekNumBetweenMonth(a, b string) int {
 	d1, _ := time.Parse("20060102", a+"01")
 	tmp, _ := time.Parse("20060102", b+"01")
